@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ELIRAM TECHNOLOGY | Innovation • Technologie • Solutions</title>
+
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- FONT AWESOME -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+<!-- AOS ANIMATION -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<!-- BOOTSTRAP -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:#070B24;
+    color:#fff;
+    overflow-x:hidden;
+    line-height:1.6;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar{ width:5px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:linear-gradient(135deg,#17A8F5,#27E1FF); border-radius:10px; }
+
+/* ==================== MODE CLAIR ==================== */
+body.light-mode{ background:#f0f4f8; color:#1a1a2e; }
+body.light-mode .navbar-custom{ background:rgba(255,255,255,0.92) !important; border-bottom:1px solid rgba(0,0,0,0.08); }
+body.light-mode .navbar-custom.scrolled{ background:rgba(255,255,255,0.98) !important; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+body.light-mode .nav-link{ color:#1a1a2e !important; }
+body.light-mode .nav-link:hover{ color:#17A8F5 !important; background:rgba(23,168,245,0.08); }
+body.light-mode .nav-link.active{ color:white !important; }
+body.light-mode .brand-tech{ color:#4a4a6a; }
+body.light-mode .brand-slogan{ color:#6B7280; }
+body.light-mode .lang-select{ background:white; color:#1a1a2e; border-color:rgba(0,0,0,0.15); }
+body.light-mode .lang-select option{ background:white; color:#1a1a2e; }
+body.light-mode .hero-glass-card, body.light-mode .glass-card, body.light-mode .service-glass-card,
+body.light-mode .contact-glass-card, body.light-mode .info-glass-box, body.light-mode .stat-card{
+    background:rgba(255,255,255,0.85) !important; border-color:rgba(0,0,0,0.06) !important; box-shadow:0 4px 20px rgba(0,0,0,0.04);
+}
+body.light-mode .contact-glass-card input, body.light-mode .contact-glass-card textarea{ background:rgba(0,0,0,0.03); color:#1a1a2e; border-color:rgba(0,0,0,0.1); }
+body.light-mode .navbar-toggler{ border-color:rgba(0,0,0,0.2) !important; background:rgba(0,0,0,0.03) !important; }
+body.light-mode .navbar-toggler-icon{ background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(23,168,245,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important; }
+body.light-mode .navbar-collapse{ background:rgba(255,255,255,0.98); border:1px solid rgba(0,0,0,0.08); }
+body.light-mode .navbar-collapse .nav-link{ color:#1a1a2e !important; }
+body.light-mode .date-display{ background:rgba(0,0,0,0.04); border-color:rgba(0,0,0,0.1); color:#1a1a2e; }
+body.light-mode .date-display i{ color:#17A8F5; }
+body.light-mode .cursor-dot{ background:#17A8F5; box-shadow:0 0 15px #17A8F5,0 0 30px #17A8F5; }
+body.light-mode .cursor-outline{ border-color:rgba(23,168,245,0.4); }
+
+/* ==================== CURSEUR DESKTOP ==================== */
+@media(min-width:992px){
+    .cursor-dot{ width:6px; height:6px; background:#27E1FF; border-radius:50%; position:fixed; pointer-events:none; z-index:999999; box-shadow:0 0 20px #27E1FF,0 0 40px #27E1FF,0 0 60px #17A8F5; }
+    .cursor-outline{ width:45px; height:45px; border:2px solid rgba(39,225,255,0.4); border-radius:50%; position:fixed; pointer-events:none; z-index:999998; transition:all 0.2s ease; }
+    .cursor-outline.hover{ width:70px; height:70px; border-color:rgba(124,58,237,0.6); background:rgba(124,58,237,0.1); box-shadow:0 0 30px rgba(124,58,237,0.3); }
+}
+
+/* ==================== BARRE PROGRESSION ==================== */
+#progressBar{ position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,#7C3AED,#F43F5E); z-index:99999; transition:width 0.1s ease; box-shadow:0 0 15px rgba(124,58,237,0.5); }
+
+/* ==================== FOND CANVAS ==================== */
+#bgCanvas{ position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; }
+
+/* ==================== LOADER ==================== */
+#page-loader{ position:fixed; top:0; left:0; width:100%; height:100%; background:#070B24; z-index:999999; display:flex; align-items:center; justify-content:center; flex-direction:column; transition:opacity 0.6s ease, visibility 0.6s ease; }
+#page-loader.hidden-loader{ opacity:0; visibility:hidden; }
+.loader-ring{ width:90px; height:90px; border-radius:50%; border:3px solid transparent; border-top-color:#27E1FF; border-right-color:#7C3AED; animation:loaderSpin 1s linear infinite; position:relative; }
+.loader-ring::before{ content:''; position:absolute; top:7px; left:7px; right:7px; bottom:7px; border-radius:50%; border:3px solid transparent; border-bottom-color:#F43F5E; border-left-color:#10B981; animation:loaderSpin 1.5s linear infinite reverse; }
+.loader-logo{ position:absolute; width:45px; height:45px; animation:loaderPulse 2s ease-in-out infinite; }
+.loader-text{ color:#27E1FF; font-family:'Orbitron',sans-serif; font-weight:700; font-size:1.1rem; margin-top:22px; letter-spacing:5px; animation:loaderFade 2s ease-in-out infinite; }
+@keyframes loaderSpin{ to{transform:rotate(360deg);} }
+@keyframes loaderPulse{ 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.15);opacity:0.7;} }
+@keyframes loaderFade{ 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+
+/* ==================== NAVBAR ==================== */
+.navbar-custom{ background:rgba(15,21,53,0.9) !important; backdrop-filter:blur(25px); -webkit-backdrop-filter:blur(25px); padding:0; border-bottom:1px solid rgba(255,255,255,0.06); min-height:70px; transition:all 0.4s ease; }
+.navbar-custom.scrolled{ min-height:55px; background:rgba(15,21,53,0.97) !important; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
+.navbar-custom .container{ display:flex; align-items:center; justify-content:space-between; padding:6px 16px; flex-wrap:nowrap; min-height:70px; }
+.navbar-custom.scrolled .container{ min-height:55px; padding:4px 16px; }
+
+.navbar-brand{ display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+.logo-box{ width:65px; height:65px; flex-shrink:0; transition:all 0.4s ease; position:relative; }
+.navbar-custom.scrolled .logo-box{ width:50px; height:50px; }
+.logo-box img{ width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 0 12px rgba(39,225,255,0.5)); }
+.brand-container{ display:flex; flex-direction:column; line-height:1.1; }
+.brand-name{ font-family:'Orbitron',sans-serif; font-size:1.2rem; font-weight:800; background:linear-gradient(135deg,#17A8F5,#27E1FF); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:2px; }
+.navbar-custom.scrolled .brand-name{ font-size:1rem; }
+.brand-tech{ font-size:0.45rem; letter-spacing:3px; color:rgba(255,255,255,0.7); font-weight:600; }
+.brand-slogan{ font-size:0.36rem; letter-spacing:1.5px; color:rgba(255,255,255,0.4); white-space:nowrap; }
+
+.navbar-toggler{ border:2px solid rgba(255,255,255,0.25) !important; padding:7px 9px !important; border-radius:8px !important; background:rgba(255,255,255,0.06) !important; flex-shrink:0; }
+.navbar-toggler:hover{ border-color:rgba(39,225,255,0.5) !important; background:rgba(39,225,255,0.1) !important; }
+.navbar-toggler:focus{ box-shadow:0 0 0 3px rgba(39,225,255,0.2) !important; outline:none !important; }
+.navbar-toggler-icon{ background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important; width:1.3em; height:1.3em; }
+.navbar-collapse{ flex-basis:100%; }
+
+.nav-link{ color:rgba(255,255,255,0.85) !important; font-weight:500; font-size:0.85rem; padding:8px 16px !important; border-radius:25px; transition:all 0.4s ease; margin:2px 3px; }
+.nav-link:hover{ color:#27E1FF !important; background:rgba(39,225,255,0.08); }
+.nav-link.active{ color:#fff !important; background:linear-gradient(135deg,#17A8F5,#27E1FF); box-shadow:0 4px 20px rgba(39,225,255,0.3); }
+.navbar-nav{ gap:4px; align-items:center; }
+
+.lang-select{ padding:7px 12px; border-radius:25px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.05); color:white; font-size:0.8rem; font-weight:600; cursor:pointer; backdrop-filter:blur(10px); }
+.lang-select:hover{ border-color:#27E1FF; background:rgba(39,225,255,0.1); }
+.lang-select option{ background:#0F1535; color:white; }
+
+/* ==================== DATE ==================== */
+.date-display{ position:fixed; top:90px; right:20px; z-index:998; background:rgba(255,255,255,0.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:10px 14px; display:flex; align-items:center; gap:8px; font-size:0.72rem; font-weight:500; color:white; box-shadow:0 8px 25px rgba(0,0,0,0.2); }
+.date-display i{ color:#27E1FF; font-size:0.9rem; }
+.date-display .time{ font-weight:700; font-size:0.85rem; color:#27E1FF; font-family:'Orbitron',monospace; }
+.date-display .date{ color:rgba(255,255,255,0.7); font-size:0.65rem; }
+
+/* ==================== HERO ==================== */
+.hero{ min-height:100vh; display:flex; align-items:center; padding-top:90px; padding-bottom:40px; position:relative; overflow:hidden; }
+.hero-badge{ display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:50px; background:rgba(124,58,237,0.1); border:1px solid rgba(124,58,237,0.3); color:#A78BFA; margin-bottom:18px; font-weight:600; font-size:0.75rem; letter-spacing:1.5px; animation:badgePulse 3s ease-in-out infinite; white-space:nowrap; }
+@keyframes badgePulse{ 0%,100%{box-shadow:0 0 0 0 rgba(124,58,237,0.3);} 50%{box-shadow:0 0 0 12px rgba(124,58,237,0);} }
+.hero-badge i{ color:#F43F5E; font-size:0.35rem; animation:dotBlink 1.5s ease-in-out infinite; }
+@keyframes dotBlink{ 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.hero h1{ font-size:3.5rem; font-weight:900; line-height:1.15; margin-bottom:18px; font-family:'Space Grotesk',sans-serif; }
+.hero h1 .gradient-text{ background:linear-gradient(135deg,#17A8F5,#27E1FF); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero h1 .gradient-text-2{ background:linear-gradient(135deg,#7C3AED,#F43F5E); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero p{ color:#B0B8D0; font-size:0.95rem; line-height:1.7; margin-bottom:28px; max-width:550px; }
+.hero-buttons{ display:flex; gap:12px; flex-wrap:wrap; }
+
+.btn-glow{ padding:13px 28px; border-radius:50px; font-weight:700; font-size:0.88rem; text-decoration:none; position:relative; overflow:hidden; transition:all 0.4s ease; border:none; cursor:pointer; letter-spacing:0.5px; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+.btn-primary-glow{ background:linear-gradient(135deg,#17A8F5,#27E1FF); color:white; box-shadow:0 8px 25px rgba(39,225,255,0.3); }
+.btn-primary-glow:hover{ transform:translateY(-3px); box-shadow:0 12px 40px rgba(39,225,255,0.45); color:white; }
+.btn-outline-glow{ border:2px solid rgba(255,255,255,0.2); color:white; background:transparent; backdrop-filter:blur(10px); }
+.btn-outline-glow:hover{ border-color:#27E1FF; background:rgba(39,225,255,0.08); box-shadow:0 0 25px rgba(39,225,255,0.2); color:white; transform:translateY(-3px); }
+
+.hero-glass-card{ background:rgba(255,255,255,0.03); border-radius:28px; padding:28px; backdrop-filter:blur(30px); border:1px solid rgba(255,255,255,0.08); box-shadow:0 0 25px rgba(39,225,255,0.1); position:relative; overflow:hidden; }
+.hero-glass-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(135deg,#17A8F5,#27E1FF); opacity:0.5; }
+.hero-glass-card h2{ font-family:'Orbitron',sans-serif; background:linear-gradient(135deg,#17A8F5,#27E1FF); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; text-align:center; margin-bottom:22px; font-weight:700; font-size:1rem; letter-spacing:3px; }
+
+.stat-card{ background:rgba(255,255,255,0.03); padding:20px 10px; border-radius:18px; text-align:center; border:1px solid rgba(255,255,255,0.05); transition:all 0.4s ease; }
+.stat-card:hover{ transform:translateY(-4px); border-color:rgba(39,225,255,0.3); box-shadow:0 8px 25px rgba(39,225,255,0.1); }
+.stat-icon{ width:45px; height:45px; border-radius:14px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+.stat-icon.it{ background:rgba(23,168,245,0.15); color:#17A8F5; }
+.stat-icon.net{ background:rgba(124,58,237,0.15); color:#7C3AED; }
+.stat-icon.power{ background:rgba(16,185,129,0.15); color:#10B981; }
+.stat-icon.secure{ background:rgba(244,63,94,0.15); color:#F43F5E; }
+.stat-card h4{ font-weight:700; font-size:0.85rem; margin-bottom:3px; }
+.stat-card p{ font-size:0.7rem; color:#6B7280; margin:0; }
+
+/* ==================== SECTIONS ==================== */
+section{ padding:70px 0; position:relative; }
+.section-header{ text-align:center; margin-bottom:50px; }
+.section-badge{ display:inline-block; padding:7px 16px; border-radius:50px; background:rgba(124,58,237,0.1); border:1px solid rgba(124,58,237,0.2); color:#A78BFA; font-size:0.7rem; font-weight:600; letter-spacing:2.5px; margin-bottom:16px; text-transform:uppercase; }
+.section-header h2{ font-size:2.5rem; font-weight:800; font-family:'Space Grotesk',sans-serif; margin-bottom:10px; }
+.section-header h2 .highlight{ background:linear-gradient(135deg,#17A8F5,#27E1FF); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.section-header p{ color:#B0B8D0; max-width:600px; margin:0 auto; font-size:0.9rem; line-height:1.7; }
+
+/* ==================== CARDS ==================== */
+.glass-card{ background:rgba(255,255,255,0.02); border-radius:28px; border:1px solid rgba(255,255,255,0.06); backdrop-filter:blur(20px); transition:all 0.4s ease; height:100%; overflow:hidden; }
+.glass-card:hover{ transform:translateY(-6px); border-color:rgba(39,225,255,0.2); box-shadow:0 15px 40px rgba(39,225,255,0.08); }
+.card-content{ padding:28px; }
+.card-icon{ width:55px; height:55px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:18px; }
+.card-icon.blue{ background:rgba(23,168,245,0.12); color:#17A8F5; }
+.card-icon.purple{ background:rgba(124,58,237,0.12); color:#7C3AED; }
+.card-icon.green{ background:rgba(16,185,129,0.12); color:#10B981; }
+.glass-card h3{ font-weight:700; font-size:1.15rem; margin-bottom:10px; }
+.glass-card p{ color:#B0B8D0; font-size:0.85rem; line-height:1.7; }
+
+.service-glass-card{ background:rgba(255,255,255,0.02); border-radius:28px; border:1px solid rgba(255,255,255,0.06); overflow:hidden; transition:all 0.4s ease; height:100%; }
+.service-glass-card:hover{ transform:translateY(-6px); border-color:rgba(39,225,255,0.2); box-shadow:0 15px 40px rgba(39,225,255,0.08); }
+.service-img-wrapper{ position:relative; overflow:hidden; height:180px; }
+.service-img-wrapper img{ width:100%; height:100%; object-fit:cover; transition:transform 0.8s ease; }
+.service-glass-card:hover .service-img-wrapper img{ transform:scale(1.06); }
+.service-img-overlay{ position:absolute; inset:0; background:linear-gradient(to top,rgba(7,11,36,0.9),transparent); }
+.service-card-body{ padding:25px; }
+.service-card-body h4{ font-weight:700; margin-bottom:8px; font-size:1.05rem; }
+.service-card-body p{ color:#B0B8D0; font-size:0.82rem; line-height:1.7; }
+
+/* ==================== STATS ==================== */
+.stats-wrapper{ background:linear-gradient(135deg,#17A8F5,#27E1FF); border-radius:35px; padding:55px 25px; position:relative; overflow:hidden; box-shadow:0 15px 50px rgba(39,225,255,0.2); }
+.stat-item{ text-align:center; position:relative; z-index:1; }
+.stat-number{ font-size:3rem; font-weight:900; font-family:'Space Grotesk',sans-serif; color:white; line-height:1; margin-bottom:6px; }
+.stat-divider{ width:30px; height:2px; background:rgba(255,255,255,0.5); margin:6px auto; border-radius:2px; }
+.stat-label{ color:rgba(255,255,255,0.9); font-weight:500; font-size:0.8rem; text-transform:uppercase; letter-spacing:1.5px; }
+
+/* ==================== CONTACT ==================== */
+.contact-glass-card{ background:rgba(255,255,255,0.02); border-radius:28px; padding:28px; border:1px solid rgba(255,255,255,0.06); backdrop-filter:blur(20px); }
+.contact-glass-card input, .contact-glass-card textarea{ width:100%; padding:14px 16px; margin-bottom:14px; border-radius:12px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:white; font-size:0.88rem; transition:all 0.4s ease; outline:none; font-family:'Poppins',sans-serif; }
+.contact-glass-card input:focus, .contact-glass-card textarea:focus{ border-color:#27E1FF; box-shadow:0 0 0 3px rgba(39,225,255,0.08); }
+.contact-glass-card textarea{ min-height:130px; resize:vertical; }
+
+.info-glass-box{ display:flex; gap:14px; margin-bottom:14px; background:rgba(255,255,255,0.02); padding:16px; border-radius:18px; border:1px solid rgba(255,255,255,0.04); transition:all 0.4s ease; }
+.info-glass-box:hover{ transform:translateX(5px); border-color:rgba(39,225,255,0.2); }
+.info-icon-circle{ width:48px; height:48px; border-radius:14px; background:linear-gradient(135deg,#17A8F5,#27E1FF); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; box-shadow:0 6px 20px rgba(39,225,255,0.2); }
+
+/* ==================== FOOTER ==================== */
+footer{ padding:45px 0 22px; text-align:center; border-top:1px solid rgba(255,255,255,0.05); background:rgba(0,0,0,0.25); }
+.footer-brand{ font-family:'Orbitron',sans-serif; font-size:1.5rem; font-weight:800; background:linear-gradient(135deg,#17A8F5,#27E1FF); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:6px; }
+.social-circle{ width:42px; height:42px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:white; text-decoration:none; margin:0 5px; transition:all 0.4s ease; font-size:0.95rem; }
+.social-circle:hover{ background:linear-gradient(135deg,#17A8F5,#27E1FF); border-color:transparent; transform:translateY(-3px); box-shadow:0 6px 20px rgba(39,225,255,0.3); color:white; }
+
+/* ==================== TOAST ==================== */
+.toast-container{ position:fixed; top:15px; right:15px; z-index:999999; display:flex; flex-direction:column; gap:6px; }
+.toast-msg{ padding:12px 18px; border-radius:10px; color:white; font-weight:600; font-size:0.78rem; backdrop-filter:blur(25px); box-shadow:0 8px 30px rgba(0,0,0,0.4); animation:toastIn 0.4s ease, toastOut 0.4s ease 3s forwards; max-width:300px; display:flex; align-items:center; gap:8px; }
+.toast-success{ background:rgba(16,185,129,0.9); } .toast-error{ background:rgba(244,63,94,0.9); } .toast-info{ background:rgba(23,168,245,0.9); }
+@keyframes toastIn{ from{transform:translateX(300px);opacity:0;} to{transform:translateX(0);opacity:1;} }
+@keyframes toastOut{ from{transform:translateX(0);opacity:1;} to{transform:translateX(300px);opacity:0;} }
+
+/* ==================== BOUTONS FLOTTANTS ==================== */
+#backToTop,#themeToggle{ position:fixed; right:15px; width:42px; height:42px; border-radius:50%; z-index:999; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.4s ease; border:none; font-size:1rem; }
+#backToTop{ bottom:22px; background:linear-gradient(135deg,#17A8F5,#27E1FF); color:white; opacity:0; visibility:hidden; transform:translateY(15px); box-shadow:0 5px 20px rgba(39,225,255,0.3); }
+#backToTop.show{ opacity:1; visibility:visible; transform:translateY(0); }
+#backToTop:hover{ transform:translateY(-3px); box-shadow:0 10px 30px rgba(39,225,255,0.5); }
+#themeToggle{ bottom:72px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:white; backdrop-filter:blur(10px); }
+#themeToggle:hover{ border-color:#FBBF24; color:#FBBF24; }
+
+/* ==================== RESPONSIVE ==================== */
+@media(max-width:991px){
+    body{ cursor:auto !important; } .cursor-dot,.cursor-outline{ display:none !important; }
+    a,button,.btn-glow,.nav-link,.navbar-toggler{ cursor:pointer !important; }
+    
+    .navbar-custom{ min-height:60px; }
+    .navbar-custom .container{ min-height:60px; padding:4px 14px; }
+    .navbar-custom.scrolled .container{ min-height:50px; }
+    .logo-box{ width:58px !important; height:58px !important; }
+    .navbar-custom.scrolled .logo-box{ width:45px !important; height:45px !important; }
+    .brand-name{ font-size:1.1rem; }
+    .navbar-custom.scrolled .brand-name{ font-size:0.9rem; }
+    
+    .navbar-collapse{ background:rgba(15,21,53,0.98); backdrop-filter:blur(30px); padding:16px; border-radius:14px; margin-top:10px; border:1px solid rgba(255,255,255,0.06); }
+    .navbar-collapse .nav-link{ color:rgba(255,255,255,0.9) !important; font-size:0.95rem; padding:10px 16px !important; margin:2px 0; }
+    
+    .hero h1{ font-size:2.8rem; }
+    .section-header h2{ font-size:2rem; }
+    section{ padding:55px 0; }
+    .date-display{ top:75px; right:12px; padding:8px 12px; font-size:0.65rem; }
+}
+
+@media(max-width:768px){
+    .navbar-custom{ min-height:56px; }
+    .navbar-custom .container{ min-height:56px; padding:3px 12px; }
+    .logo-box{ width:52px !important; height:52px !important; }
+    .brand-name{ font-size:1rem; }
+    .brand-slogan{ font-size:0.34rem; }
+    
+    .hero{ padding-top:80px; min-height:auto; }
+    .hero h1{ font-size:2.3rem; }
+    .hero p{ font-size:0.88rem; }
+    .hero-badge{ font-size:0.7rem; padding:7px 14px; }
+    
+    .section-header h2{ font-size:1.8rem; }
+    .stat-number{ font-size:2.4rem; }
+    
+    .date-display{ top:70px; right:8px; padding:6px 10px; font-size:0.6rem; border-radius:12px; }
+    .date-display .time{ font-size:0.75rem; }
+    .date-display .date{ font-size:0.58rem; }
+}
+
+@media(max-width:576px){
+    .navbar-custom{ min-height:52px; }
+    .navbar-custom .container{ min-height:52px; padding:2px 10px; }
+    .logo-box{ width:46px !important; height:46px !important; }
+    .navbar-custom.scrolled .logo-box{ width:38px !important; height:38px !important; }
+    .brand-name{ font-size:0.9rem; letter-spacing:1px; }
+    .brand-tech{ font-size:0.4rem; letter-spacing:2px; }
+    .brand-slogan{ display:none; }
+    
+    .navbar-toggler{ padding:5px 7px !important; border-radius:6px !important; }
+    .navbar-toggler-icon{ width:1.1em; height:1.1em; }
+    
+    .hero{ padding-top:70px; padding-bottom:25px; }
+    .hero h1{ font-size:1.9rem; line-height:1.25; }
+    .hero p{ font-size:0.82rem; margin-bottom:20px; }
+    .hero-badge{ font-size:0.65rem; padding:6px 12px; letter-spacing:1px; }
+    .hero-buttons{ flex-direction:column; gap:10px; }
+    .btn-glow{ width:100%; padding:12px 20px; font-size:0.82rem; }
+    
+    .hero-glass-card{ padding:18px; }
+    .hero-glass-card h2{ font-size:0.9rem; letter-spacing:2px; margin-bottom:16px; }
+    .stat-card{ padding:16px 8px; }
+    .stat-icon{ width:38px; height:38px; font-size:1rem; border-radius:10px; }
+    .stat-card h4{ font-size:0.75rem; }
+    .stat-card p{ font-size:0.65rem; }
+    
+    .section-header{ margin-bottom:35px; }
+    .section-header h2{ font-size:1.6rem; }
+    .section-header p{ font-size:0.82rem; }
+    .section-badge{ font-size:0.62rem; padding:6px 12px; letter-spacing:2px; }
+    
+    .card-content{ padding:22px; }
+    .card-icon{ width:45px; height:45px; font-size:1.2rem; margin-bottom:14px; }
+    .glass-card h3{ font-size:1.05rem; }
+    .glass-card p{ font-size:0.8rem; }
+    
+    .service-img-wrapper{ height:160px; }
+    .service-card-body{ padding:20px; }
+    .service-card-body h4{ font-size:0.95rem; }
+    .service-card-body p{ font-size:0.78rem; }
+    
+    .stats-wrapper{ padding:35px 18px; border-radius:25px; }
+    .stat-number{ font-size:2rem; }
+    .stat-label{ font-size:0.7rem; }
+    
+    .contact-glass-card{ padding:20px; }
+    .info-glass-box{ padding:14px; gap:10px; }
+    .info-icon-circle{ width:42px; height:42px; font-size:0.9rem; }
+    
+    .date-display{ top:65px; right:5px; padding:5px 8px; font-size:0.55rem; border-radius:10px; gap:5px; }
+    .date-display i{ font-size:0.7rem; }
+    .date-display .time{ font-size:0.7rem; }
+    .date-display .date{ font-size:0.52rem; }
+    
+    #themeToggle{ bottom:62px; right:10px; width:36px; height:36px; font-size:0.85rem; }
+    #backToTop{ bottom:15px; right:10px; width:36px; height:36px; font-size:0.85rem; }
+    
+    .footer-brand{ font-size:1.3rem; }
+}
+
+@media(max-width:380px){
+    .logo-box{ width:40px !important; height:40px !important; }
+    .brand-name{ font-size:0.8rem; }
+    .brand-tech{ font-size:0.35rem; }
+    .hero h1{ font-size:1.6rem; }
+    .section-header h2{ font-size:1.4rem; }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- CURSEUR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-outline" id="cursorOutline"></div>
+
+<!-- BARRE PROGRESSION -->
+<div id="progressBar"></div>
+
+<!-- LOADER -->
+<div id="page-loader">
+    <div class="loader-ring"><div class="loader-logo"><img src="logo.svg" alt="ELIRAM" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 15px rgba(39,225,255,0.8));"></div></div>
+    <div class="loader-text">ELIRAM</div>
+</div>
+
+<!-- FOND CANVAS -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- DATE -->
+<div class="date-display">
+    <i class="fa-solid fa-calendar-days"></i>
+    <div>
+        <div class="time" id="liveTime">--:--:--</div>
+        <div class="date" id="liveDate">---</div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-custom" id="mainNavbar">
+    <div class="container">
+        <a class="navbar-brand" href="#home">
+            <div class="logo-box"><img src="logo.svg" alt="ELIRAM Logo"></div>
+            <div class="brand-container">
+                <span class="brand-name">ELIRAM</span>
+                <span class="brand-tech">TECHNOLOGY</span>
+                <small class="brand-slogan">Innovation • Technologie • Solutions</small>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#home" data-lang="home">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about" data-lang="about">À propos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services" data-lang="services">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact" data-lang="contact">Contact</a></li>
+            </ul>
+            <div class="ms-lg-3 mt-3 mt-lg-0">
+                <select id="languageSwitcher" class="lang-select">
+                    <option value="fr">🇫🇷 FR</option>
+                    <option value="en">🇬🇧 EN</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-6" data-aos="fade-up" data-aos-duration="800">
+                <div class="hero-badge"><i class="fa-solid fa-circle"></i> <span data-lang="badge">INNOVATION • TECHNOLOGIE • SOLUTIONS</span></div>
+                <h1><span data-lang="heroTitle1">La <span class="gradient-text">puissance</span> de la</span><br><span class="gradient-text-2" data-lang="heroTitle2">technologie</span> <span data-lang="heroTitle3">africaine</span></h1>
+                <p data-lang="heroText">ELIRAM TECHNOLOGY accompagne les entreprises, organisations et particuliers dans leur transformation numérique grâce à des solutions modernes, intelligentes et innovantes adaptées aux besoins du marché africain.</p>
+                <div class="hero-buttons">
+                    <a href="#services" class="btn-glow btn-primary-glow"><span data-lang="discover">Découvrir nos services</span> <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn-glow btn-outline-glow"><span data-lang="contactBtn">Nous contacter</span></a>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <div class="hero-glass-card">
+                    <h2 data-lang="expertiseTitle">DOMAINES D'EXPERTISE</h2>
+                    <div class="row g-2">
+                        <div class="col-6"><div class="stat-card"><div class="stat-icon it"><i class="fa-solid fa-laptop-code"></i></div><h4>IT</h4><p data-lang="it">Informatique</p></div></div>
+                        <div class="col-6"><div class="stat-card"><div class="stat-icon net"><i class="fa-solid fa-network-wired"></i></div><h4>NET</h4><p data-lang="network">Réseaux</p></div></div>
+                        <div class="col-6"><div class="stat-card"><div class="stat-icon power"><i class="fa-solid fa-bolt"></i></div><h4>POWER</h4><p data-lang="energy">Énergie</p></div></div>
+                        <div class="col-6"><div class="stat-card"><div class="stat-icon secure"><i class="fa-solid fa-shield-halved"></i></div><h4>SECURE</h4><p data-lang="security">Sécurité</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about"><div class="container">
+    <div class="section-header" data-aos="fade-up">
+        <span class="section-badge" data-lang="aboutBadge">QUI SOMMES-NOUS</span>
+        <h2><span data-lang="aboutTitle">À propos de <span class="highlight">ELIRAM</span></span></h2>
+        <p data-lang="aboutDescription">Une entreprise technologique moderne spécialisée dans les systèmes intelligents, les solutions numériques et l'innovation technologique en Afrique.</p>
+    </div>
+    <div class="row g-3">
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100"><div class="glass-card"><div class="card-content"><div class="card-icon blue"><i class="fa-solid fa-building"></i></div><h3 data-lang="presentationTitle">Présentation</h3><p data-lang="presentationText">ELIRAM TECHNOLOGY intervient dans les technologies de l'information, les systèmes électroniques, les télécommunications, l'énergie et la sécurité intelligente.</p></div></div></div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200"><div class="glass-card"><div class="card-content"><div class="card-icon purple"><i class="fa-solid fa-eye"></i></div><h3 data-lang="visionTitle">Vision</h3><p data-lang="visionText">Devenir une référence technologique africaine grâce à des solutions innovantes, durables et performantes.</p></div></div></div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300"><div class="glass-card"><div class="card-content"><div class="card-icon green"><i class="fa-solid fa-bullseye"></i></div><h3 data-lang="missionTitle">Mission</h3><p data-lang="missionText">Offrir des solutions technologiques fiables, accessibles et modernes afin d'accélérer la transformation numérique.</p></div></div></div>
+    </div>
+</div></section>
+
+<!-- SERVICES -->
+<section id="services"><div class="container">
+    <div class="section-header" data-aos="fade-up">
+        <span class="section-badge" data-lang="servicesBadge">NOS SERVICES</span>
+        <h2><span data-lang="servicesTitle">Solutions <span class="highlight">professionnelles</span></span></h2>
+        <p data-lang="servicesDescription">Des solutions adaptées aux besoins des entreprises et des particuliers.</p>
+    </div>
+    <div class="row g-3">
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100"><div class="service-glass-card"><div class="service-img-wrapper"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop" alt="IT"><div class="service-img-overlay"></div></div><div class="service-card-body"><div class="card-icon blue" style="width:38px;height:38px;font-size:1rem;margin-bottom:10px;"><i class="fa-solid fa-laptop-code"></i></div><h4 data-lang="service1Title">Services Informatiques</h4><p data-lang="service1Text">Développement logiciel, maintenance informatique, sécurisation des données et assistance technique.</p></div></div></div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200"><div class="service-glass-card"><div class="service-img-wrapper"><img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=600&auto=format&fit=crop" alt="Elec"><div class="service-img-overlay"></div></div><div class="service-card-body"><div class="card-icon purple" style="width:38px;height:38px;font-size:1rem;margin-bottom:10px;"><i class="fa-solid fa-microchip"></i></div><h4 data-lang="service2Title">Systèmes Électroniques</h4><p data-lang="service2Text">Automatisation technologique, équipements intelligents et intégration électronique.</p></div></div></div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300"><div class="service-glass-card"><div class="service-img-wrapper"><img src="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?q=80&w=600&auto=format&fit=crop" alt="Telecom"><div class="service-img-overlay"></div></div><div class="service-card-body"><div class="card-icon green" style="width:38px;height:38px;font-size:1rem;margin-bottom:10px;"><i class="fa-solid fa-network-wired"></i></div><h4 data-lang="service3Title">Télécommunications</h4><p data-lang="service3Text">Installation réseau, Wi-Fi professionnel, maintenance et optimisation réseau.</p></div></div></div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400"><div class="service-glass-card"><div class="service-img-wrapper"><img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=600&auto=format&fit=crop" alt="Energie"><div class="service-img-overlay"></div></div><div class="service-card-body"><div class="card-icon rose" style="width:38px;height:38px;font-size:1rem;margin-bottom:10px;"><i class="fa-solid fa-bolt"></i></div><h4 data-lang="service4Title">Énergie & Électrotechnique</h4><p data-lang="service4Text">Installation électrique, maintenance, onduleurs et solutions énergétiques modernes.</p></div></div></div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500"><div class="service-glass-card"><div class="service-img-wrapper"><img src="https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=600&auto=format&fit=crop" alt="Security"><div class="service-img-overlay"></div></div><div class="service-card-body"><div class="card-icon blue" style="width:38px;height:38px;font-size:1rem;margin-bottom:10px;"><i class="fa-solid fa-shield-halved"></i></div><h4 data-lang="service5Title">Sécurité Technologique</h4><p data-lang="service5Text">Vidéosurveillance, alarmes intelligentes, contrôle d'accès et protection numérique.</p></div></div></div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600"><div class="service-glass-card"><div class="service-img-wrapper"><img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=600&auto=format&fit=crop" alt="Auto"><div class="service-img-overlay"></div></div><div class="service-card-body"><div class="card-icon purple" style="width:38px;height:38px;font-size:1rem;margin-bottom:10px;"><i class="fa-solid fa-car-side"></i></div><h4 data-lang="service6Title">Technologies Automobiles</h4><p data-lang="service6Text">Diagnostic automobile, GPS, géolocalisation et solutions connectées.</p></div></div></div>
+    </div>
+</div></section>
+
+<!-- STATS -->
+<section><div class="container"><div class="stats-wrapper" data-aos="zoom-in"><div class="row g-3">
+    <div class="col-6 col-lg-3"><div class="stat-item"><div class="stat-number counter" data-target="120">0</div><div class="stat-divider"></div><div class="stat-label" data-lang="projectsCompleted">Projets Réalisés</div></div></div>
+    <div class="col-6 col-lg-3"><div class="stat-item"><div class="stat-number counter" data-target="95">0</div><div class="stat-divider"></div><div class="stat-label" data-lang="clientsSatisfied">Clients satisfaits</div></div></div>
+    <div class="col-6 col-lg-3"><div class="stat-item"><div class="stat-number counter" data-target="15">0</div><div class="stat-divider"></div><div class="stat-label" data-lang="techExperts">Experts Tech</div></div></div>
+    <div class="col-6 col-lg-3"><div class="stat-item"><div class="stat-number counter" data-target="24">0</div><div class="stat-divider"></div><div class="stat-label" data-lang="support247">Support 24/7</div></div></div>
+</div></div></div></section>
+
+<!-- CONTACT -->
+<section id="contact"><div class="container">
+    <div class="section-header" data-aos="fade-up">
+        <span class="section-badge" data-lang="contactBadge">CONTACT</span>
+        <h2><span data-lang="contactTitle">Contactez <span class="highlight">ELIRAM</span></span></h2>
+        <p data-lang="contactDescription">Nous sommes disponibles pour accompagner vos projets technologiques et numériques.</p>
+    </div>
+    <div class="row g-4">
+        <div class="col-lg-5" data-aos="fade-up">
+            <div class="info-glass-box"><div class="info-icon-circle"><i class="fa-solid fa-location-dot"></i></div><div><h5 style="font-weight:700;font-size:0.95rem;" data-lang="addressTitle">Adresse</h5><p style="color:#B0B8D0;font-size:0.8rem;" data-lang="addressText">N°08, Avenue du Grand Séminaire, Golf Tshamalalé, Lubumbashi — RDC</p></div></div>
+            <div class="info-glass-box"><div class="info-icon-circle"><i class="fa-solid fa-phone"></i></div><div><h5 style="font-weight:700;font-size:0.95rem;" data-lang="phoneTitle">Téléphone</h5><p style="color:#B0B8D0;font-size:0.8rem;">+243 847 179 411</p></div></div>
+            <div class="info-glass-box"><div class="info-icon-circle"><i class="fa-solid fa-envelope"></i></div><div><h5 style="font-weight:700;font-size:0.95rem;" data-lang="emailTitle">Email</h5><p style="color:#B0B8D0;font-size:0.8rem;">contact@eliramtechnology.com</p></div></div>
+        </div>
+        <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+            <form class="contact-glass-card" id="contactForm" action="https://formsubmit.co/eddybesa2022@gmail.com" method="POST" novalidate>
+                <input type="text" name="Nom" data-placeholder-fr="Votre nom" data-placeholder-en="Your name" placeholder="Votre nom" required>
+                <input type="email" name="Email" data-placeholder-fr="Votre email" data-placeholder-en="Your email" placeholder="Votre email" required>
+                <textarea name="Message" data-placeholder-fr="Votre message" data-placeholder-en="Your message" placeholder="Votre message" required></textarea>
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_subject" value="Nouveau message ELIRAM TECHNOLOGY">
+                <button type="submit" class="btn-glow btn-primary-glow" style="width:100%;"><span data-lang="sendMessage">Envoyer le message</span> <i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+</div></section>
+
+<!-- FOOTER -->
+<footer><div class="container">
+    <div class="footer-brand">ELIRAM TECHNOLOGY</div>
+    <p style="color:#B0B8D0;margin-bottom:18px;font-size:0.85rem;" data-lang="footerSlogan">Innovation • Technologie • Solutions</p>
+    <div style="margin-bottom:22px;">
+        <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-circle"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-circle"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <p style="color:#6B7280;font-size:0.75rem;" data-lang="copyright">© 2026 ELIRAM TECHNOLOGY — Tous droits réservés.</p>
+</div></footer>
+
+<button id="backToTop"><i class="fa-solid fa-arrow-up"></i></button>
+<button id="themeToggle"><i class="fa-solid fa-moon"></i></button>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+AOS.init({once:true,offset:60});
+
+// Loader
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('page-loader').classList.add('hidden-loader');},1500);});
+
+// Progress bar
+window.addEventListener('scroll',()=>{document.getElementById('progressBar').style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+'%';});
+
+// Curseur desktop
+if(innerWidth>991){const d=document.getElementById('cursorDot'),o=document.getElementById('cursorOutline');document.addEventListener('mousemove',e=>{d.style.left=e.clientX+'px';d.style.top=e.clientY+'px';setTimeout(()=>{o.style.left=(e.clientX-20)+'px';o.style.top=(e.clientY-20)+'px';},50);});document.querySelectorAll('a,button,.btn-glow,.nav-link,.glass-card,.service-glass-card,.stat-card,.info-glass-box,.social-circle,.navbar-toggler').forEach(el=>{el.addEventListener('mouseenter',()=>o.classList.add('hover'));el.addEventListener('mouseleave',()=>o.classList.remove('hover'));});}
+
+// Navbar
+window.addEventListener('scroll',()=>document.getElementById('mainNavbar').classList.toggle('scrolled',scrollY>50));
+
+// Back to top
+const btt=document.getElementById('backToTop');window.addEventListener('scroll',()=>btt.classList.toggle('show',scrollY>400));btt.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+
+// Theme
+let dark=true;const tt=document.getElementById('themeToggle'),ti=tt.querySelector('i');
+if(localStorage.getItem('theme')==='light'){document.body.classList.add('light-mode');ti.className='fa-solid fa-sun';tt.style.color='#FBBF24';tt.style.borderColor='#FBBF24';dark=false;}
+tt.addEventListener('click',()=>{dark=!dark;document.body.classList.toggle('light-mode',!dark);ti.className=dark?'fa-solid fa-moon':'fa-solid fa-sun';tt.style.color=dark?'white':'#FBBF24';tt.style.borderColor=dark?'rgba(255,255,255,0.1)':'#FBBF24';localStorage.setItem('theme',dark?'dark':'light');});
+
+// Toast
+function showToast(m,t='info'){const c=document.getElementById('toastContainer'),d=document.createElement('div');d.className=`toast-msg toast-${t}`;const i={success:'fa-circle-check',error:'fa-circle-xmark',info:'fa-circle-info'};d.innerHTML=`<i class="fa-solid ${i[t]}"></i> ${m}`;c.appendChild(d);setTimeout(()=>d.remove(),3400);}
+
+// Fond constellation
+const bgC=document.getElementById('bgCanvas'),bctx=bgC.getContext('2d');bgC.width=innerWidth;bgC.height=innerHeight;
+const nodes=[];const NC=70;
+class Node{constructor(){this.x=Math.random()*bgC.width;this.y=Math.random()*bgC.height;this.vx=(Math.random()-0.5)*0.45;this.vy=(Math.random()-0.5)*0.45;this.r=Math.random()*2+0.7;this.o=Math.random()*0.5+0.2;this.h=Math.random()<0.5?195:270;}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0)this.x=bgC.width;if(this.x>bgC.width)this.x=0;if(this.y<0)this.y=bgC.height;if(this.y>bgC.height)this.y=0;}draw(){const g=bctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r*5);g.addColorStop(0,`hsla(${this.h},100%,70%,${this.o*0.4})`);g.addColorStop(1,'transparent');bctx.fillStyle=g;bctx.beginPath();bctx.arc(this.x,this.y,this.r*5,0,Math.PI*2);bctx.fill();bctx.beginPath();bctx.arc(this.x,this.y,this.r,0,Math.PI*2);bctx.fillStyle=`hsla(${this.h},100%,75%,${this.o})`;bctx.fill();}}
+for(let i=0;i<NC;i++)nodes.push(new Node());
+function drawCon(){for(let a=0;a<nodes.length;a++)for(let b=a+1;b<nodes.length;b++){const dx=nodes[a].x-nodes[b].x,dy=nodes[a].y-nodes[b].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<150){bctx.beginPath();bctx.moveTo(nodes[a].x,nodes[a].y);bctx.lineTo(nodes[b].x,nodes[b].y);bctx.strokeStyle=`rgba(39,225,255,${(1-dist/150)*0.1})`;bctx.lineWidth=0.4;bctx.stroke();}}}
+function animBg(){bctx.clearRect(0,0,bgC.width,bgC.height);nodes.forEach(n=>{n.update();n.draw();});drawCon();requestAnimationFrame(animBg);}animBg();
+addEventListener('resize',()=>{bgC.width=innerWidth;bgC.height=innerHeight;});
+
+// Date & heure
+function udt(){const n=new Date(),r=new Date(n.getTime()+7200000);document.getElementById('liveTime').textContent=`${String(r.getUTCHours()).padStart(2,'0')}:${String(r.getUTCMinutes()).padStart(2,'0')}:${String(r.getUTCSeconds()).padStart(2,'0')}`;const j=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],m=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];document.getElementById('liveDate').textContent=`${j[n.getDay()]} ${n.getDate()} ${m[n.getMonth()]} ${n.getFullYear()}`;}udt();setInterval(udt,1000);
+
+// Counters
+let counted=false;
+function ac(){const s=document.querySelector('.stats-wrapper');if(!s||counted)return;const r=s.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){counted=true;document.querySelectorAll('.counter').forEach(c=>{const t=+c.dataset.target;let cur=0;const st=t/60;const u=()=>{cur+=st;c.textContent=cur<t?Math.ceil(cur):t;if(cur<t)requestAnimationFrame(u);};u();});}}
+window.addEventListener('scroll',ac);window.addEventListener('load',ac);
+
+// Nav active
+const secs=document.querySelectorAll('section[id]'),nls=document.querySelectorAll('.nav-link');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(scrollY>=s.offsetTop-150&&scrollY<s.offsetTop+s.offsetHeight-150)cur=s.id;});nls.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+cur)l.classList.add('active');});});
+
+// Mobile menu close
+document.querySelectorAll('.navbar-nav .nav-link').forEach(l=>{l.addEventListener('click',()=>{const c=document.getElementById('navbarNav');if(c.classList.contains('show'))bootstrap.Collapse.getInstance(c)?.hide();});});
+
+// Translations
+let cl='fr';
+const tr={fr:{home:"Accueil",about:"À propos",services:"Services",contact:"Contact",badge:"INNOVATION • TECHNOLOGIE • SOLUTIONS",heroTitle1:'La <span class="gradient-text">puissance</span> de la',heroTitle2:'technologie',heroTitle3:'africaine',heroText:"ELIRAM TECHNOLOGY accompagne les entreprises, organisations et particuliers dans leur transformation numérique grâce à des solutions modernes, intelligentes et innovantes adaptées aux besoins du marché africain.",discover:"Découvrir nos services",contactBtn:"Nous contacter",expertiseTitle:"DOMAINES D'EXPERTISE",it:"Informatique",network:"Réseaux",energy:"Énergie",security:"Sécurité",aboutBadge:"QUI SOMMES-NOUS",aboutTitle:'À propos de <span class="highlight">ELIRAM</span>',aboutDescription:"Une entreprise technologique moderne spécialisée dans les systèmes intelligents, les solutions numériques et l'innovation technologique en Afrique.",presentationTitle:"Présentation",presentationText:"ELIRAM TECHNOLOGY intervient dans les technologies de l'information, les systèmes électroniques, les télécommunications, l'énergie et la sécurité intelligente.",visionTitle:"Vision",visionText:"Devenir une référence technologique africaine grâce à des solutions innovantes, durables et performantes.",missionTitle:"Mission",missionText:"Offrir des solutions technologiques fiables, accessibles et modernes afin d'accélérer la transformation numérique.",servicesBadge:"NOS SERVICES",servicesTitle:'Solutions <span class="highlight">professionnelles</span>',servicesDescription:"Des solutions adaptées aux besoins des entreprises et des particuliers.",service1Title:"Services Informatiques",service1Text:"Développement logiciel, maintenance informatique, sécurisation des données et assistance technique.",service2Title:"Systèmes Électroniques",service2Text:"Automatisation technologique, équipements intelligents et intégration électronique.",service3Title:"Télécommunications",service3Text:"Installation réseau, Wi-Fi professionnel, maintenance et optimisation réseau.",service4Title:"Énergie & Électrotechnique",service4Text:"Installation électrique, maintenance, onduleurs et solutions énergétiques modernes.",service5Title:"Sécurité Technologique",service5Text:"Vidéosurveillance, alarmes intelligentes, contrôle d'accès et protection numérique.",service6Title:"Technologies Automobiles",service6Text:"Diagnostic automobile, GPS, géolocalisation et solutions connectées.",projectsCompleted:"Projets Réalisés",clientsSatisfied:"Clients satisfaits",techExperts:"Experts Tech",support247:"Support 24/7",contactBadge:"CONTACT",contactTitle:'Contactez <span class="highlight">ELIRAM</span>',contactDescription:"Nous sommes disponibles pour accompagner vos projets technologiques et numériques.",addressTitle:"Adresse",addressText:"N°08, Avenue du Grand Séminaire, Golf Tshamalalé, Lubumbashi — RDC",phoneTitle:"Téléphone",emailTitle:"Email",sendMessage:"Envoyer le message",footerSlogan:"Innovation • Technologie • Solutions",copyright:"© 2026 ELIRAM TECHNOLOGY — Tous droits réservés."},en:{home:"Home",about:"About",services:"Services",contact:"Contact",badge:"INNOVATION • TECHNOLOGY • SOLUTIONS",heroTitle1:'The <span class="gradient-text">power</span> of',heroTitle2:'African',heroTitle3:'technology',heroText:"ELIRAM TECHNOLOGY supports companies, organizations and individuals in their digital transformation.",discover:"Discover Our Services",contactBtn:"Contact Us",expertiseTitle:"FIELDS OF EXPERTISE",it:"Information Technology",network:"Networks",energy:"Energy",security:"Security",aboutBadge:"ABOUT US",aboutTitle:'About <span class="highlight">ELIRAM</span>',aboutDescription:"A modern technology company specialized in intelligent systems and digital solutions.",presentationTitle:"Presentation",presentationText:"ELIRAM TECHNOLOGY operates in IT, electronic systems, telecommunications, energy and smart security.",visionTitle:"Vision",visionText:"To become a leading African technology reference.",missionTitle:"Mission",missionText:"Provide reliable and modern technological solutions.",servicesBadge:"OUR SERVICES",servicesTitle:'<span class="highlight">Professional</span> Solutions',servicesDescription:"Solutions adapted to companies and individuals.",service1Title:"IT Services",service1Text:"Software development, IT maintenance, data security and technical support.",service2Title:"Electronic Systems",service2Text:"Technological automation and smart equipment.",service3Title:"Telecommunications",service3Text:"Network installation, Wi-Fi, maintenance and optimization.",service4Title:"Energy & Electrical",service4Text:"Electrical installation, UPS and modern energy solutions.",service5Title:"Security Technology",service5Text:"Video surveillance, smart alarms and access control.",service6Title:"Automotive Technologies",service6Text:"Vehicle diagnostics, GPS tracking and connected solutions.",projectsCompleted:"Completed Projects",clientsSatisfied:"Satisfied Clients",techExperts:"Tech Experts",support247:"24/7 Support",contactBadge:"CONTACT",contactTitle:'Contact <span class="highlight">ELIRAM</span>',contactDescription:"We support your technology projects.",addressTitle:"Address",addressText:"No.08 Grand Séminaire Avenue, Golf Tshamalalé, Lubumbashi — DRC",phoneTitle:"Phone",emailTitle:"Email",sendMessage:"Send Message",footerSlogan:"Innovation • Technology • Solutions",copyright:"© 2026 ELIRAM TECHNOLOGY — All rights reserved."}};
+const sw=document.getElementById('languageSwitcher');
+function al(lang){cl=lang;document.documentElement.lang=lang;document.querySelectorAll('[data-lang]').forEach(el=>{const k=el.dataset.lang;if(tr[lang]?.[k])el.innerHTML=tr[lang][k];});document.querySelectorAll('input,textarea').forEach(f=>{f.placeholder=f.getAttribute(`data-placeholder-${lang}`)||f.placeholder;});localStorage.setItem('language',lang);document.title=lang==='fr'?'ELIRAM TECHNOLOGY | Innovation • Technologie • Solutions':'ELIRAM TECHNOLOGY | Innovation • Technology • Solutions';}
+sw.addEventListener('change',()=>al(sw.value));al(localStorage.getItem('language')||'fr');
+</script>
+
+</body>
+</html>
